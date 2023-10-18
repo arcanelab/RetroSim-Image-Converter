@@ -28,7 +28,7 @@ int main(int argc, char **argv)
     std::set<uint32_t> uniqueColors;
     for (int i = 0; i < width * height * 4; i += 4)
     {
-        uint32_t color = (data[i + 3] << 24) | (data[i] << 16) | (data[i + 1] << 8) | data[i + 2];
+        uint32_t color = (data[i + 3] << 24) | (data[i + 2] << 16) | (data[i + 1] << 8) | data[i];
         uniqueColors.insert(color);
     }
 
@@ -53,7 +53,7 @@ int main(int argc, char **argv)
     std::ofstream btmFile(std::string(filename) + ".bitmap", std::ios::binary);
     for (int i = 0; i < width * height * 4; i += 4)
     {
-        uint32_t color = (data[i + 3] << 24) | (data[i] << 16) | (data[i + 1] << 8) | data[i + 2];
+        uint32_t color = (data[i + 3] << 24) | (data[i + 2] << 16) | (data[i + 1] << 8) | data[i];
         uint8_t index = std::distance(palette.begin(), std::find(palette.begin(), palette.end(), color));
         btmFile.write(reinterpret_cast<char *>(&index), sizeof(index));
     }
